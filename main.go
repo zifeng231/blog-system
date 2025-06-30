@@ -40,6 +40,16 @@ func main() {
 			username, _ := c.Get("claims")
 			c.JSON(http.StatusOK, gin.H{"message": "欢迎回来", "username": username})
 		})
+
+		protected.POST("/posts", handlers.CreatePost)
+		protected.GET("/posts", handlers.GetPosts)
+		protected.GET("/posts/:id", handlers.GetPost)
+		protected.PUT("/posts/:id", handlers.UpdatePost)
+		protected.DELETE("/posts/:id", handlers.DeletePost)
+		protected.POST("/posts/user", handlers.GetUserPosts)
+		protected.GET("/comments/:id", handlers.CreateComment)
+		protected.GET("/comments-user/:id", handlers.GetComments)
+
 	}
 	r.Run(":8080")
 }
