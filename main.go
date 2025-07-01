@@ -5,6 +5,7 @@ import (
 	"blog-system/handlers"
 	"blog-system/middleware"
 	"blog-system/models"
+	"blog-system/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
@@ -34,6 +35,9 @@ func main() {
 	r.POST("/login", handlers.Login)
 	//需要认证的接口
 	protected := r.Group("/api")
+	logZ, _ := utils.NewLogger()
+	protected.Use(middleware.ErrorHandler(logZ))
+	protected.Use(middleware.RequestLogger(logZ))
 	protected.Use(middleware.AuthMiddleware())
 	{
 		protected.GET("/profile", func(c *gin.Context) {

@@ -7,7 +7,7 @@ type Post struct {
 	Title     string `json:"title"`
 	Content   string `json:"content"`
 	UserID    uint   `json:"user_id"`
-	User      User   `gorm:"foreignKey:UserID"`
+	User      User   `gorm:"foreignKey:UserID" binding:"-"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
